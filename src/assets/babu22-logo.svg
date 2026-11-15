@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Vignette -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#141a29"/>
+      <stop offset="70%" stop-color="#070a12"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+
+    <!-- Metallic Gold Gradients -->
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe27a"/>
+      <stop offset="25%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#996515"/>
+      <stop offset="75%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#aa771c"/>
+    </linearGradient>
+
+    <linearGradient id="goldTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffbe8"/>
+      <stop offset="30%" stop-color="#fde047"/>
+      <stop offset="60%" stop-color="#ca8a04"/>
+      <stop offset="90%" stop-color="#854d0e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+
+    <!-- Red 22 Gradient -->
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fca5a5"/>
+      <stop offset="20%" stop-color="#ef4444"/>
+      <stop offset="60%" stop-color="#b91c1c"/>
+      <stop offset="90%" stop-color="#7f1d1d"/>
+      <stop offset="100%" stop-color="#450a0a"/>
+    </linearGradient>
+
+    <!-- Ruby Gem Gradient -->
+    <linearGradient id="rubyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="50%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#7f1d1d"/>
+    </linearGradient>
+
+    <!-- Drop Shadows and Glows -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+
+  <!-- Circular Outer Background -->
+  <circle cx="250" cy="250" r="230" fill="url(#bgGrad)" stroke="url(#goldRing)" stroke-width="8" filter="url(#dropShadow)" />
+  <!-- Inner Ring Accent -->
+  <circle cx="250" cy="250" r="215" fill="none" stroke="#ca8a04" stroke-width="2" opacity="0.6"/>
+  <circle cx="250" cy="250" r="205" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Left Poker Chip (Black/Red/Gold) -->
+  <g transform="translate(60, 150) rotate(-20)" filter="url(#dropShadow)">
+    <circle cx="40" cy="40" r="38" fill="#18181b" stroke="url(#goldRing)" stroke-width="3"/>
+    <circle cx="40" cy="40" r="32" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="14 10"/>
+    <circle cx="40" cy="40" r="22" fill="#27272a" stroke="url(#goldRing)" stroke-width="1.5"/>
+    <path d="M40 25 C34 33 26 37 26 43 C26 48 31 51 36 51 C38 51 39 50 40 48 C41 50 42 51 44 51 C49 51 54 48 54 43 C54 37 46 33 40 25 Z" fill="url(#goldRing)"/>
+    <path d="M37 49 L43 49 L41 55 L39 55 Z" fill="url(#goldRing)"/>
+  </g>
+
+  <!-- Right Poker Chip -->
+  <g transform="translate(380, 310) rotate(25)" filter="url(#dropShadow)">
+    <circle cx="40" cy="40" r="38" fill="#18181b" stroke="url(#goldRing)" stroke-width="3"/>
+    <circle cx="40" cy="40" r="32" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="14 10"/>
+    <circle cx="40" cy="40" r="22" fill="#27272a" stroke="url(#goldRing)" stroke-width="1.5"/>
+    <path d="M40 25 C34 33 26 37 26 43 C26 48 31 51 36 51 C38 51 39 50 40 48 C41 50 42 51 44 51 C49 51 54 48 54 43 C54 37 46 33 40 25 Z" fill="url(#goldRing)"/>
+    <path d="M37 49 L43 49 L41 55 L39 55 Z" fill="url(#goldRing)"/>
+  </g>
+
+  <!-- Four Aces Fan -->
+  <g id="fourAces" filter="url(#dropShadow)">
+    <!-- Ace 1: Spades -->
+    <g transform="translate(260, 60) rotate(-18)">
+      <rect x="0" y="0" width="60" height="95" rx="6" fill="#fffef0" stroke="#ca8a04" stroke-width="2"/>
+      <text x="8" y="20" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#18181b">A</text>
+      <text x="8" y="34" font-size="13" fill="#18181b">♠</text>
+      <path d="M30 45 C25 51 18 55 18 61 C18 66 22 69 27 69 C28 69 29 68 30 66 C31 68 32 69 33 69 C38 69 42 66 42 61 C42 55 35 51 30 45 Z" fill="#18181b"/>
+      <path d="M28 67 L32 67 L31 72 L29 72 Z" fill="#18181b"/>
+    </g>
+
+    <!-- Ace 2: Hearts -->
+    <g transform="translate(300, 68) rotate(-6)">
+      <rect x="0" y="0" width="60" height="95" rx="6" fill="#fffef0" stroke="#ca8a04" stroke-width="2"/>
+      <text x="8" y="20" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#dc2626">A</text>
+      <text x="8" y="34" font-size="13" fill="#dc2626">♥</text>
+      <path d="M30 52 C30 52 23 44 19 48 C15 52 17 59 21 63 L30 72 L39 63 C43 59 45 52 41 48 C37 44 30 52 30 52 Z" fill="#dc2626"/>
+    </g>
+
+    <!-- Ace 3: Clubs -->
+    <g transform="translate(345, 85) rotate(8)">
+      <rect x="0" y="0" width="60" height="95" rx="6" fill="#fffef0" stroke="#ca8a04" stroke-width="2"/>
+      <text x="8" y="20" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#18181b">A</text>
+      <text x="8" y="34" font-size="13" fill="#18181b">♣</text>
+      <circle cx="30" cy="52" r="6" fill="#18181b"/>
+      <circle cx="24" cy="60" r="6" fill="#18181b"/>
+      <circle cx="36" cy="60" r="6" fill="#18181b"/>
+      <path d="M28 62 L32 62 L33 71 L27 71 Z" fill="#18181b"/>
+    </g>
+
+    <!-- Ace 4: Diamonds -->
+    <g transform="translate(390, 115) rotate(22)">
+      <rect x="0" y="0" width="60" height="95" rx="6" fill="#fffef0" stroke="#ca8a04" stroke-width="2"/>
+      <text x="8" y="20" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#dc2626">A</text>
+      <text x="8" y="34" font-size="13" fill="#dc2626">♦</text>
+      <polygon points="30,46 39,58 30,70 21,58" fill="#dc2626"/>
+    </g>
+  </g>
+
+  <!-- Royal Crown above Babu -->
+  <g id="royalCrown" transform="translate(130, 85)" filter="url(#dropShadow)">
+    <!-- Base band -->
+    <path d="M15 90 Q75 100 135 90 L132 82 Q75 92 18 82 Z" fill="url(#goldRing)" stroke="#78350f" stroke-width="1.5"/>
+    <!-- Crown Spikes -->
+    <path d="M15 85 L2 35 L40 55 L75 15 L110 55 L148 35 L135 85 Q75 96 15 85 Z" fill="url(#goldRing)" stroke="#92400e" stroke-width="2"/>
+    <!-- Crown Inner Shading -->
+    <path d="M25 80 L18 45 L42 60 L75 28 L108 60 L132 45 L125 80 Q75 88 25 80 Z" fill="url(#goldTextGrad)" opacity="0.8"/>
+    <!-- Crown Pearls on tips -->
+    <circle cx="2" cy="35" r="5" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+    <circle cx="75" cy="15" r="7" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+    <circle cx="148" cy="35" r="5" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+    <circle cx="40" cy="55" r="4" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+    <circle cx="110" cy="55" r="4" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+    <!-- Ruby Jewels in Crown -->
+    <polygon points="75,45 83,55 75,65 67,55" fill="url(#rubyGrad)" stroke="#450a0a" stroke-width="1"/>
+    <circle cx="45" cy="74" r="5" fill="url(#rubyGrad)" stroke="#450a0a" stroke-width="1"/>
+    <circle cx="105" cy="74" r="5" fill="url(#rubyGrad)" stroke="#450a0a" stroke-width="1"/>
+    <circle cx="75" cy="77" r="4" fill="#67e8f9" stroke="#0e7490" stroke-width="1"/>
+  </g>
+
+  <!-- Big 3D "Babu" in Cursive Golden Style -->
+  <g id="babuWord" filter="url(#dropShadow)">
+    <!-- Shadow Extrusions -->
+    <text x="45" y="278" font-family="'Brush Script MT', 'Outfit', cursive, serif" font-weight="900" font-size="142" font-style="italic" fill="#3f2202">Babu</text>
+    <text x="43" y="275" font-family="'Brush Script MT', 'Outfit', cursive, serif" font-weight="900" font-size="142" font-style="italic" fill="#78350f">Babu</text>
+    <text x="41" y="272" font-family="'Brush Script MT', 'Outfit', cursive, serif" font-weight="900" font-size="142" font-style="italic" fill="#ca8a04">Babu</text>
+    <!-- Main Gold Face with Stroke -->
+    <text x="40" y="270" font-family="'Brush Script MT', 'Outfit', cursive, serif" font-weight="900" font-size="142" font-style="italic" fill="url(#goldTextGrad)" stroke="#ffffff" stroke-width="2.5" paint-order="stroke fill">Babu</text>
+  </g>
+
+  <!-- Big 3D "22" in Red with Gold Border -->
+  <g id="num22" filter="url(#dropShadow)">
+    <!-- Red 3D Extrusions -->
+    <text x="315" y="278" font-family="'Outfit', 'Impact', sans-serif" font-weight="900" font-size="130" font-style="italic" fill="#2d0606">22</text>
+    <text x="312" y="275" font-family="'Outfit', 'Impact', sans-serif" font-weight="900" font-size="130" font-style="italic" fill="#580e0e">22</text>
+    <text x="309" y="272" font-family="'Outfit', 'Impact', sans-serif" font-weight="900" font-size="130" font-style="italic" fill="#991b1b">22</text>
+    <!-- Main Red Face with Golden Border -->
+    <text x="306" y="268" font-family="'Outfit', 'Impact', sans-serif" font-weight="900" font-size="130" font-style="italic" fill="url(#redGrad)" stroke="url(#goldRing)" stroke-width="4.5" paint-order="stroke fill">22</text>
+  </g>
+
+  <!-- Curved Golden Ribbon Banner: "BETTING" -->
+  <g id="bettingBanner" filter="url(#dropShadow)">
+    <!-- Outer Banner Shape -->
+    <path d="M60 360 C140 330 360 330 440 360 L425 405 C350 380 150 380 75 405 Z" fill="#0b0f19" stroke="url(#goldRing)" stroke-width="5"/>
+    <path d="M66 364 C144 336 356 336 434 364 L422 400 C348 376 152 376 78 400 Z" fill="#18181b" stroke="#eab308" stroke-width="1.5"/>
+    <!-- Left Ribbon Tails -->
+    <path d="M55 358 L20 340 L35 375 L15 400 L65 390 Z" fill="url(#goldRing)" stroke="#78350f" stroke-width="1.5" opacity="0.9"/>
+    <!-- Right Ribbon Tails -->
+    <path d="M445 358 L480 340 L465 375 L485 400 L435 390 Z" fill="url(#goldRing)" stroke="#78350f" stroke-width="1.5" opacity="0.9"/>
+    <!-- Three Horizontal Gold Accent Lines Left -->
+    <line x1="90" y1="368" x2="120" y2="368" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="90" y1="376" x2="120" y2="376" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="90" y1="384" x2="120" y2="384" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+    <!-- "BETTING" Text -->
+    <text x="250" y="386" font-family="'Outfit', sans-serif" font-weight="900" font-size="44" letter-spacing="6" text-anchor="middle" fill="url(#goldTextGrad)" stroke="#451a03" stroke-width="1.5">BETTING</text>
+    <!-- Three Horizontal Gold Accent Lines Right -->
+    <line x1="380" y1="368" x2="410" y2="368" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="380" y1="376" x2="410" y2="376" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="380" y1="384" x2="410" y2="384" stroke="url(#goldRing)" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Sparkle Highlights -->
+  <path d="M120 200 L124 212 L136 216 L124 220 L120 232 L116 220 L104 216 L116 212 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M380 200 L383 209 L392 212 L383 215 L380 224 L377 215 L368 212 L377 209 Z" fill="#ffffff" opacity="0.8"/>
+  <path d="M250 420 L252 426 L258 428 L252 430 L250 436 L248 430 L242 428 L248 426 Z" fill="#ffffff" opacity="0.9"/>
+</svg>

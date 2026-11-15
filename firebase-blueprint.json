@@ -1,0 +1,153 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Registered user profile with verified wallet balance and role",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "username": { "type": "string", "description": "Display username" },
+        "balance": { "type": "number", "description": "Available cash balance in BDT" },
+        "bonusBalance": { "type": "number", "description": "Bonus credits in BDT" },
+        "reservedBalance": { "type": "number", "description": "Amount locked in pending withdrawals" },
+        "vipPoints": { "type": "number", "description": "Accumulated VIP reward points" },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User authorization role" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of account creation" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last update" }
+      },
+      "required": ["uid", "balance"]
+    },
+    "DepositRequest": {
+      "title": "DepositRequest",
+      "description": "Financial deposit request submitted by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique deposit request document ID" },
+        "userId": { "type": "string", "description": "UID of the depositing user" },
+        "userEmail": { "type": "string", "description": "Email of the depositing user" },
+        "username": { "type": "string", "description": "Username of the depositing user" },
+        "method": { "type": "string", "enum": ["bkash", "nagad", "rocket", "upay"], "description": "Payment gateway" },
+        "amount": { "type": "number", "description": "Deposit amount in BDT" },
+        "senderNumber": { "type": "string", "description": "11-digit mobile wallet number" },
+        "trxId": { "type": "string", "description": "Normalized uppercase transaction ID" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Review status" },
+        "createdAt": { "type": "string", "description": "Submission timestamp" },
+        "reviewedAt": { "type": "string", "description": "Admin review timestamp" },
+        "reviewedBy": { "type": "string", "description": "Admin UID or email who processed request" },
+        "rejectionReason": { "type": "string", "description": "Reason given if rejected" }
+      },
+      "required": ["id", "userId", "method", "amount", "senderNumber", "trxId", "status", "createdAt"]
+    },
+    "WithdrawalRequest": {
+      "title": "WithdrawalRequest",
+      "description": "Financial withdrawal request submitted by an authenticated user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique withdrawal request ID" },
+        "userId": { "type": "string", "description": "UID of the requesting user" },
+        "userEmail": { "type": "string", "description": "Email of the user" },
+        "username": { "type": "string", "description": "Username of the user" },
+        "method": { "type": "string", "enum": ["bkash", "nagad", "rocket", "upay"], "description": "Payout gateway" },
+        "amount": { "type": "number", "description": "Withdrawal amount in BDT" },
+        "accountNumber": { "type": "string", "description": "Recipient mobile account number" },
+        "status": { "type": "string", "enum": ["pending", "completed", "rejected"], "description": "Status of withdrawal" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "processedAt": { "type": "string", "description": "Processing timestamp" },
+        "processedBy": { "type": "string", "description": "Admin UID who processed payout" },
+        "payoutReference": { "type": "string", "description": "External bank/agent confirmation reference" },
+        "rejectionReason": { "type": "string", "description": "Reason for rejection if refunded" }
+      },
+      "required": ["id", "userId", "method", "amount", "accountNumber", "status", "createdAt"]
+    },
+    "ReservedTrxId": {
+      "title": "ReservedTrxId",
+      "description": "Unique index preventing duplicate submission of the same payment reference across all accounts",
+      "type": "object",
+      "properties": {
+        "trxId": { "type": "string", "description": "Normalized transaction reference" },
+        "userId": { "type": "string", "description": "UID of claiming user" },
+        "depositId": { "type": "string", "description": "Associated deposit request ID" },
+        "reservedAt": { "type": "string", "description": "Reservation timestamp" }
+      },
+      "required": ["trxId", "userId", "depositId", "reservedAt"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Global operational settings configurable exclusively by authorized admins",
+      "type": "object",
+      "properties": {
+        "bkashNumber": { "type": "string", "description": "Active bKash agent deposit number" },
+        "nagadNumber": { "type": "string", "description": "Active Nagad agent deposit number" },
+        "rocketNumber": { "type": "string", "description": "Active Rocket agent deposit number" },
+        "upayNumber": { "type": "string", "description": "Active Upay agent deposit number" },
+        "minDeposit": { "type": "number", "description": "Minimum allowed deposit amount in BDT" },
+        "maxDeposit": { "type": "number", "description": "Maximum allowed deposit amount in BDT" },
+        "minWithdrawal": { "type": "number", "description": "Minimum allowed withdrawal amount in BDT" },
+        "maxWithdrawal": { "type": "number", "description": "Maximum allowed withdrawal amount in BDT" },
+        "maintenanceMode": { "type": "boolean", "description": "Flag to toggle platform maintenance" },
+        "announcement": { "type": "string", "description": "Promotional marquee or alert message" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" },
+        "updatedBy": { "type": "string", "description": "Admin UID who made changes" }
+      },
+      "required": ["bkashNumber", "nagadNumber", "minDeposit", "minWithdrawal"]
+    },
+    "AdminAuditLog": {
+      "title": "AdminAuditLog",
+      "description": "Immutable audit trail of privileged administrative operations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Audit log entry ID" },
+        "adminUid": { "type": "string", "description": "UID of the admin who performed the action" },
+        "adminEmail": { "type": "string", "description": "Email of the admin" },
+        "action": { "type": "string", "description": "Action performed (e.g., DEPOSIT_APPROVED, SETTINGS_UPDATED)" },
+        "targetId": { "type": "string", "description": "ID of affected entity" },
+        "details": { "type": "string", "description": "Structured details or rationale" },
+        "timestamp": { "type": "string", "description": "Server timestamp of action" }
+      },
+      "required": ["id", "adminUid", "action", "timestamp"]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Registry of verified platform administrators",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID of the admin" },
+        "email": { "type": "string", "description": "Email address of the admin" },
+        "grantedAt": { "type": "string", "description": "Timestamp when admin access was granted" },
+        "grantedBy": { "type": "string", "description": "Bootstrap script or admin UID" }
+      },
+      "required": ["uid", "email", "grantedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "UserProfile" },
+      "description": "User account documents containing verified wallet balances"
+    },
+    "/deposit_requests/{requestId}": {
+      "schema": { "$ref": "DepositRequest" },
+      "description": "Deposit requests pending admin verification"
+    },
+    "/withdrawal_requests/{requestId}": {
+      "schema": { "$ref": "WithdrawalRequest" },
+      "description": "Withdrawal requests pending admin execution"
+    },
+    "/reserved_trx_ids/{trxId}": {
+      "schema": { "$ref": "ReservedTrxId" },
+      "description": "Global index for single-use Transaction ID reservation"
+    },
+    "/app_settings/global": {
+      "schema": { "$ref": "AppSettings" },
+      "description": "Platform settings for payment numbers, limits, and maintenance"
+    },
+    "/admin_audit_logs/{logId}": {
+      "schema": { "$ref": "AdminAuditLog" },
+      "description": "Tamper-evident log of administrative financial and configuration actions"
+    },
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "AdminRecord" },
+      "description": "List of authorized administrator UIDs verified by server rules"
+    }
+  }
+}

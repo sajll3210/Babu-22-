@@ -1,0 +1,8 @@
+{
+  "name": "Babu22",
+  "description": "Babu22 - Premier Online Casino & Sports Betting Portal featuring Live Dealer Tables, Babu22, Aviator, Slots, Under 7, and VIP Rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

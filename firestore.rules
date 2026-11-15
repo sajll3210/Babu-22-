@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Users Collection: Wallet balances & profiles
+    // Direct client writes to balance or role are strictly forbidden.
+    match /users/{userId} {
+      allow get: if isValidId(userId) && (isOwner(userId) || isAdmin());
+      allow list: if isAdmin();
+      // Only server Admin SDK / Cloud Functions or verified admins can update balance/profile
+      allow create: if isOwner(userId) && (!('balance' in request.resource.data) || request.resource.data.balance == 0);
+      allow update: if isAdmin();
+      allow delete: if false;
+    }
+
+    // Deposit Requests Collection
+    match /deposit_requests/{requestId} {
+      allow get: if isValidId(requestId) && (isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid));
+      allow list: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      // Status changes and balance crediting occur through trusted server functions or verified admins
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid && request.resource.data.status == 'pending';
+      allow update: if isAdmin();
+      allow delete: if false;
+    }
+
+    // Withdrawal Requests Collection
+    match /withdrawal_requests/{requestId} {
+      allow get: if isValidId(requestId) && (isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid));
+      allow list: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid && request.resource.data.status == 'pending';
+      allow update: if isAdmin();
+      allow delete: if false;
+    }
+
+    // Reserved Transaction IDs (single-use constraint enforcement)
+    match /reserved_trx_ids/{trxId} {
+      allow get: if isSignedIn();
+      allow list: if isAdmin();
+      // Created and managed by server / Admin SDK during atomic deposit submission
+      allow write: if isAdmin();
+    }
+
+    // App Settings (bKash/Nagad agent numbers, limits, announcement, maintenance)
+    match /app_settings/{settingId} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Admin Audit Logs (Tamper-evident log of administrative operations)
+    match /admin_audit_logs/{logId} {
+      allow get, list: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Admins Registry
+    match /admins/{adminUid} {
+      allow get: if isSignedIn() && (request.auth.uid == adminUid || isAdmin());
+      allow list: if isAdmin();
+      allow write: if false; // Only server-side provisioning scripts and Firebase Admin SDK can modify
+    }
+  }
+}
